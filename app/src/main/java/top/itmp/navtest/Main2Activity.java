@@ -3,6 +3,7 @@ package top.itmp.navtest;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -87,9 +88,10 @@ public class Main2Activity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == android.R.id.home){
-            return true;
-        }
+       if(id == android.R.id.home){
+           NavUtils.navigateUpFromSameTask(this);
+           return true;
+       }
         return super.onOptionsItemSelected(item);
     }
 
