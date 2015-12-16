@@ -43,6 +43,9 @@ public class Main2Activity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -84,7 +87,9 @@ public class Main2Activity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if(id == android.R.id.home){
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
