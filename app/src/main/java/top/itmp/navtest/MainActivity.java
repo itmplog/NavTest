@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager)findViewById(R.id.container);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new SectionsPagerAdapter(getFragmentManager()));
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+
+            @Override
+            public void transformPage(View page, float position) {
+                final float normalizedposition = Math.abs(Math.abs(position) - 1);
+                page.setScaleX(normalizedposition / 2 + 0.5f);
+                page.setScaleY(normalizedposition / 2 + 0.5f);
+            }
+        });
 
         tabLayout = (TabLayout)findViewById(R.id.navtabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -106,12 +115,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_hello0) {
-            tabLayout.getTabAt(0);
+            viewPager.setCurrentItem(0);
             // Handle the camera action
         } else if (id == R.id.nav_hello1) {
-            tabLayout.getTabAt(1);
+            viewPager.setCurrentItem(1);
         } else if (id == R.id.nav_hello2) {
-            tabLayout.getTabAt(2);
+            viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_main2) {
             Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             startActivity(intent);
