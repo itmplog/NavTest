@@ -1,8 +1,15 @@
 package top.itmp.navtest;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ViewPager viewPager = null;
+    private TabLayout tabLayout = null;
+    private Integer[] frags = {R.layout.frag0, R.layout.frag1, R.layout.frag2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +33,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        viewPager = (ViewPager)findViewById(R.id.container);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(new SectionsPagerAdapter(getFragmentManager()));
+
+        tabLayout = (TabLayout)findViewById(R.id.navtabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -97,5 +115,38 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter{
+        public SectionsPagerAdapter(FragmentManager fm){ super(fm);}
+
+        @Override
+        public android.app.Fragment getItem(final int position) {
+            return new Fragment(){
+                @Nullable
+                @Override
+                public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                    return inflater.inflate(frags[position], container, false);
+                }
+            };
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return "Hello 0";
+                case 1:
+                    return "Hello 1";
+                case 2:
+                    return "Hello 2";
+            }
+            return super.getPageTitle(position);
+        }
     }
 }
