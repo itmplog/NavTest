@@ -2,6 +2,7 @@ package top.itmp.navtest;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = (TabLayout)findViewById(R.id.navtabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        Fragment frag0 = getFragmentManager().findFragmentById(R.id.frag0);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -122,13 +128,36 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public android.app.Fragment getItem(final int position) {
-            return new Fragment(){
-                @Nullable
-                @Override
-                public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-                    return inflater.inflate(frags[position], container, false);
-                }
-            };
+            switch(position) {
+                case 0:
+                return new Fragment() {
+                    @Nullable
+                    @Override
+                    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+                        View rootView = inflater.inflate(frags[position], container, false);
+                        Button button = (Button)rootView.findViewById(R.id.button);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        return rootView;
+                    }
+                };
+                case 1:
+                case 2:
+                    return new Fragment(){
+                        @Nullable
+                        @Override
+                        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                            return inflater.inflate(frags[position], container, false);
+                        }
+                    };
+            }
+            return null;
         }
 
         @Override
