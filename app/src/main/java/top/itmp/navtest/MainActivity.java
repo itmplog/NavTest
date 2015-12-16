@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Snackbar.make(viewPager, "hello heheh",Snackbar.LENGTH_SHORT).show();
             return true;
         }
 
@@ -104,13 +105,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_hello0) {
+            tabLayout.getTabAt(0);
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_hello1) {
+            tabLayout.getTabAt(1);
+        } else if (id == R.id.nav_hello2) {
+            tabLayout.getTabAt(2);
+        } else if (id == R.id.nav_main2) {
+            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            startActivity(intent);
+        }   else if (id == R.id.nav_set) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+            tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         } else if (id == R.id.nav_share) {
 
