@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager = null;
     private TabLayout tabLayout = null;
     private Integer[] frags = {R.layout.frag0, R.layout.frag1, R.layout.frag2};
+    private Integer[] navs = {R.id.nav_hello0, R.id.nav_hello1, R.id.nav_hello2};
+    private NavigationView navigationView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,23 @@ public class MainActivity extends AppCompatActivity
                 final float normalizedposition = Math.abs(Math.abs(position) - 1);
                 page.setScaleX(normalizedposition / 2 + 0.5f);
                 page.setScaleY(normalizedposition / 2 + 0.5f);
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                navigationView.setCheckedItem(navs[position]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
 
@@ -71,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
