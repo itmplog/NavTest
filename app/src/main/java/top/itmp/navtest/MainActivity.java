@@ -114,6 +114,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if(item.isChecked()){
+            item.setCheckable(false);
+        }else {
+            item.setCheckable(true);
+        }
+
         if (id == R.id.nav_hello0) {
             viewPager.setCurrentItem(0);
             // Handle the camera action
